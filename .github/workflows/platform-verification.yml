@@ -1,0 +1,63 @@
+name: Platform verification
+on:
+  push:
+    branches: [staging/web-backend-ai]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: apps/web
+      - run: pnpm build
+        working-directory: apps/web
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/backend/package-lock.json
+      - run: npm ci
+        working-directory: apps/backend
+      - run: npm run build:all
+        working-directory: apps/backend
+      - run: npm test -- --runInBand
+        working-directory: apps/backend
+  ai:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: python -m compileall -q services/ai
+  history:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: |
+          git fetch https://github.com/mmdxiaoxin/agricultural-diagnostic-web.git main
+          git merge-base --is-ancestor FETCH_HEAD HEAD
+          git fetch https://github.com/mmdxiaoxin/agricultural-diagnostic-service.git master
+          git merge-base --is-ancestor FETCH_HEAD HEAD
+          git fetch https://github.com/mmdxiaoxin/agricultural-ai-service.git master
+          git merge-base --is-ancestor FETCH_HEAD HEAD
