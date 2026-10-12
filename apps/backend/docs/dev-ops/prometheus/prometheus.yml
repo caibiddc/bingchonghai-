@@ -1,0 +1,54 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'pm2'
+    static_configs:
+      - targets: ['host.docker.internal:9209']
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+    scrape_timeout: 3s
+    scheme: http
+    honor_labels: true
+    fallback_scrape_protocol: 'PrometheusText0.0.4'
+
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets: ['host.docker.internal:3000']
+    metrics_path: '/api/metrics'
+
+  - job_name: 'auth-service'
+    static_configs:
+      - targets: ['host.docker.internal:3001']
+    metrics_path: '/metrics'
+
+  - job_name: 'user-service'
+    static_configs:
+      - targets: ['host.docker.internal:3002']
+    metrics_path: '/metrics'
+
+  - job_name: 'diagnosis-service'
+    static_configs:
+      - targets: ['host.docker.internal:3003']
+    metrics_path: '/metrics'
+
+  - job_name: 'upload-service'
+    static_configs:
+      - targets: ['host.docker.internal:3004']
+    metrics_path: '/metrics'
+
+  - job_name: 'download-service'
+    static_configs:
+      - targets: ['host.docker.internal:3005']
+    metrics_path: '/metrics'
+
+  - job_name: 'file-service'
+    static_configs:
+      - targets: ['host.docker.internal:3006']
+    metrics_path: '/metrics'
+
+  - job_name: 'knowledge-service'
+    static_configs:
+      - targets: ['host.docker.internal:3007']
+    metrics_path: '/metrics'

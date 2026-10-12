@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+  rpc UploadAvatar (UploadAvatarRequest) returns (UploadAvatarResponse);
+  rpc GetAvatar (GetAvatarRequest) returns (stream GetAvatarResponse);
+}
+
+message UploadAvatarRequest {
+  int32 userId = 1;
+  string fileData = 2;  // base64 encoded file data
+  string mimetype = 3;
+}
+
+message UploadAvatarResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetAvatarRequest {
+  int32 userId = 1;
+}
+
+message GetAvatarResponse {
+  bool success = 1;
+  string message = 2;
+  oneof data {
+    AvatarMetadata metadata = 3;
+    bytes chunk = 4;
+  }
+}
+
+message AvatarMetadata {
+  string fileName = 1;
+  string mimeType = 2;
+  int64 totalSize = 3;
+}

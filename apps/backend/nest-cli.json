@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/api-gateway/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "assets": ["**/*.proto", "**/*.png"],
+    "watchAssets": true,
+    "webpack": true,
+    "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/api-gateway",
+  "projects": {
+    "ali-oss": {
+      "type": "library",
+      "root": "libs/ali-oss",
+      "entryFile": "index",
+      "sourceRoot": "libs/ali-oss/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/ali-oss/tsconfig.lib.json"
+      }
+    },
+    "api-gateway": {
+      "type": "application",
+      "root": "apps/api-gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
+      }
+    },
+    "auth-service": {
+      "type": "application",
+      "root": "apps/auth-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/auth-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/auth-service/tsconfig.app.json"
+      }
+    },
+    "consul": {
+      "type": "library",
+      "root": "libs/consul",
+      "entryFile": "index",
+      "sourceRoot": "libs/consul/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/consul/tsconfig.lib.json"
+      }
+    },
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
+      }
+    },
+    "diagnosis-service": {
+      "type": "application",
+      "root": "apps/diagnosis-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/diagnosis-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/diagnosis-service/tsconfig.app.json"
+      }
+    },
+    "download-service": {
+      "type": "application",
+      "root": "apps/download-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/download-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/download-service/tsconfig.app.json"
+      }
+    },
+    "file-operation": {
+      "type": "library",
+      "root": "libs/file-operation",
+      "entryFile": "index",
+      "sourceRoot": "libs/file-operation/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/file-operation/tsconfig.lib.json"
+      }
+    },
+    "file-service": {
+      "type": "application",
+      "root": "apps/file-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/file-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/file-service/tsconfig.app.json"
+      }
+    },
+    "knowledge-service": {
+      "type": "application",
+      "root": "apps/knowledge-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/knowledge-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/knowledge-service/tsconfig.app.json"
+      }
+    },
+    "mail": {
+      "type": "library",
+      "root": "libs/mail",
+      "entryFile": "index",
+      "sourceRoot": "libs/mail/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mail/tsconfig.lib.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    },
+    "upload-service": {
+      "type": "application",
+      "root": "apps/upload-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/upload-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/upload-service/tsconfig.app.json"
+      }
+    },
+    "user-service": {
+      "type": "application",
+      "root": "apps/user-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/user-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user-service/tsconfig.app.json"
+      }
+    }
+  }
+}
