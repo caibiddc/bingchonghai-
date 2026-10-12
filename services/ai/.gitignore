@@ -1,0 +1,85 @@
+### VisualStudioCode template
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### Xcode template
+## User settings
+xcuserdata/
+
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+### Redis template
+# Ignore redis binary dump (dump.rdb) files
+
+*.rdb
+
+### Flask template
+instance/*
+!instance/.gitignore
+.webassets-cache
+.env
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.pywz
+
+# PyTorch
+*.pt
+*.pth
+*.pth.tar
+*.pth.tar.gz
+*.pth.tar.bz2
+*.pth.tar.xz
+*.pth.tar.lzma
+*.pth.tar.lz4
+*.pth.tar.lz4.gz
+*.pth.tar.lz4.bz2
+*.pth.tar.lz4.xz
+*.pth.tar.lz4.lzma
+*.pth.tar.lz4.lz4
+*.pth.tar.lz4.lz4.gz
+*.pth.tar.lz4.lz4.bz2
+*.pth.tar.lz4.lz4.xz
+*.pth.tar.lz4.lz4.lzma
+*.pth.tar.lz4.lz4.lz4
+
+# ONNX
+*.onnx
+
+# vs code
+.vscode
+
+# pycharm
+.idea
+
+# logs
+logs/*
+
+# env
+.env
+.env.*
+.env.*.local
+
+# data
+data/*

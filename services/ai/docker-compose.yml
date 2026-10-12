@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: agricultural-ai-service
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - ./logs:/app/logs
+      - weight_data:/app/weight
+      - app_data:/app/data
+    environment:
+      - MPLCONFIGDIR=/app/data/matplotlib
+      - YOLO_CONFIG_DIR=/app/data/yolo
+      - FLASK_APP=app.py
+      - HOST=0.0.0.0
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  redis_data:
+  weight_data:
+  app_data: 
