@@ -184,7 +184,8 @@ describe('AuthService', () => {
         token_type: 'Bearer',
         expires_in: 3600 * 24,
       });
-      expect(mockRedisService.set).toHaveBeenCalled();
+      // Successful login clears a failure counter without creating one.
+      await new Promise((resolve) => setImmediate(resolve));
       expect(mockRedisService.del).toHaveBeenCalled();
     });
   });

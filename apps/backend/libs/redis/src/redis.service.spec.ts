@@ -7,7 +7,7 @@ describe('RedisService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [RedisService],
-    }).compile();
+    }).useMocker(() => ({})).compile();
 
     service = module.get<RedisService>(RedisService);
   });

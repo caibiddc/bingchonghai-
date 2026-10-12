@@ -9,7 +9,7 @@ describe('AiServiceController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [RemoteController],
       providers: [RemoteService],
-    }).compile();
+    }).useMocker(() => ({})).compile();
 
     controller = module.get<RemoteController>(RemoteController);
   });

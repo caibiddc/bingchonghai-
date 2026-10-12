@@ -7,7 +7,7 @@ describe('KnowledgeController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [KnowledgeController],
-    }).compile();
+    }).useMocker(() => ({})).compile();
 
     controller = module.get<KnowledgeController>(KnowledgeController);
   });

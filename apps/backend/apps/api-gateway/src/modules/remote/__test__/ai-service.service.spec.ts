@@ -7,7 +7,7 @@ describe('AiServiceService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [RemoteService],
-    }).compile();
+    }).useMocker(() => ({})).compile();
 
     service = module.get<RemoteService>(RemoteService);
   });
