@@ -24,7 +24,7 @@ export default defineConfig((mode: ConfigEnv): UserConfig => {
 				"/api": {
 					target: "http://localhost:3000",
 					changeOrigin: true,
-					rewrite: path => path.replace(/^\/api/, "")
+					// Preserve /api for the NestJS global API prefix.
 				}
 			}
 		},

@@ -123,29 +123,16 @@ export class AuthService {
         });
       }
 
-      try {
-        // 直接验证密码
-        const isValid = await this.verifyPassword(password, user.password);
-
-        if (!isValid) {
-          // 异步处理登录失败
-          this.handleLoginFailure(login, '密码错误').catch((err) =>
-            this.logger.error('处理登录失败时出错', err),
-          );
-          throw new RpcException({
-            code: 400,
-            message: '账号或密码错误',
-          });
-        }
-      } catch (error) {
-        this.logger.error('密码验证失败', {
-          error: error.message,
-          userId: user.id,
-          login,
-        });
+      // Separate password comparison errors from wrong credentials.
+      // Previously the catch block converted our own 400 error into a 500.
+      const isValid = await this.verifyPassword(password, user.password);
+      if (!isValid) {
+        this.handleLoginFailure(login, '密码错误').catch((err) =>
+          this.logger.error('处理登录失败时出错', err),
+        );
         throw new RpcException({
-          code: 500,
-          message: '密码验证失败',
+          code: 400,
+          message: '账号或密码错误',
         });
       }
 
@@ -271,7 +258,11 @@ export class AuthService {
    */
   async verifyAccount(token: string) {
     try {
-      const { userId } = this.jwt.decode(token);
+      // JWT decode() does not verify signature or expiry.
+      const { userId } = this.jwt.verify<{ userId: number }>(token);
+      if (!userId) {
+        throw new Error('无效激活令牌');
+      }
       return await firstValueFrom(
         this.userClient.send({ cmd: 'user.update.activate' }, { id: userId }),
       );

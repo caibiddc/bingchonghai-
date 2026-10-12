@@ -29,3 +29,8 @@ logs
 # 测试文件
 test
 coverage
+
+# Protect private environment files
+.env
+.env.*
+!.env.example

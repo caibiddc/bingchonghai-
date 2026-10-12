@@ -8,14 +8,7 @@ services:
       dockerfile: Dockerfile
     container_name: agricultural-service
     ports:
-      - "3000:3000" # api-gateway
-      - "3001:3001" # auth-service
-      - "3002:3002" # user-service
-      - "3003:3003" # diagnosis-service
-      - "3004:3004" # upload-service
-      - "3005:3005" # download-service
-      - "3006:3006" # file-service
-      - "3007:3007" # knowledge-service
+      - "127.0.0.1:3000:3000" # api-gateway
     environment:
       - NODE_ENV=production
       - DB_HOST=host.docker.internal

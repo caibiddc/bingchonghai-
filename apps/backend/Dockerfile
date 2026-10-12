@@ -50,7 +50,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/ecosystem.config.cjs ./
-COPY --from=builder /app/.env* ./
+# Inject secrets at runtime; never bake .env files into Docker images.
 
 # 创建数据存储目录
 RUN mkdir -p /app/dist/chunks \

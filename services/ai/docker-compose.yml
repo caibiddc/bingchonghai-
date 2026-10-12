@@ -6,7 +6,7 @@ services:
     container_name: agricultural-ai-service
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     volumes:
       - ./logs:/app/logs
       - weight_data:/app/weight
@@ -15,6 +15,7 @@ services:
       - MPLCONFIGDIR=/app/data/matplotlib
       - YOLO_CONFIG_DIR=/app/data/yolo
       - FLASK_APP=app.py
+      - HOST=0.0.0.0
     env_file:
       - .env
     extra_hosts:

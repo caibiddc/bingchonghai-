@@ -218,6 +218,9 @@ def health_check():
         # 记录健康检查结果
         logger.info(f"健康检查结果: {status}")
 
+        # Docker HEALTHCHECK uses curl -f; non-200 must signal missing dependencies.
+        if not is_healthy:
+            return ApiResponse.service_unavailable("AI依赖检查未通过", data=status)
         return ApiResponse.success(data=status)
     except Exception as e:
         logger.error(f"健康检查失败: {str(e)}")

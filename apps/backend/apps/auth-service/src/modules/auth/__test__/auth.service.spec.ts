@@ -22,6 +22,7 @@ describe('AuthService', () => {
   const mockJwtService = {
     sign: jest.fn(),
     decode: jest.fn(),
+    verify: jest.fn(),
   };
 
   const mockMailService = {
@@ -157,6 +158,20 @@ describe('AuthService', () => {
       expect(mockRedisService.increment).toHaveBeenCalled();
     });
 
+    it('should return 400, not 500, when the password is incorrect', async () => {
+      mockUserClient.send.mockReturnValue(of(mockUser));
+      (compare as jest.Mock).mockResolvedValue(false);
+      try {
+        await service.login(login, password);
+        throw new Error('login should have rejected');
+      } catch (error) {
+        expect((error as RpcException).getError()).toEqual({
+          code: 400,
+          message: '账号或密码错误',
+        });
+      }
+    });
+
     it('should login successfully and return tokens', async () => {
       mockUserClient.send.mockReturnValue(of(mockUser));
       (compare as jest.Mock).mockResolvedValue(true);
@@ -168,7 +183,6 @@ describe('AuthService', () => {
         access_token: 'access-token',
         token_type: 'Bearer',
         expires_in: 3600 * 24,
-        sessionId: expect.any(String),
       });
       expect(mockRedisService.set).toHaveBeenCalled();
       expect(mockRedisService.del).toHaveBeenCalled();
@@ -197,13 +211,16 @@ describe('AuthService', () => {
     const token = 'valid-token';
 
     it('should throw RpcException if token is invalid', async () => {
-      mockJwtService.decode.mockReturnValue(null);
+      mockJwtService.verify.mockImplementation(() => {
+        throw new Error('invalid signature');
+      });
 
       await expect(service.verifyAccount(token)).rejects.toThrow(RpcException);
+      expect(mockJwtService.decode).not.toHaveBeenCalled();
     });
 
     it('should verify account successfully', async () => {
-      mockJwtService.decode.mockReturnValue({ userId: 1 });
+      mockJwtService.verify.mockReturnValue({ userId: 1 });
       mockUserClient.send.mockReturnValue(
         of({ code: 200, message: 'success' }),
       );

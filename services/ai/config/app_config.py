@@ -27,7 +27,7 @@ class Config:
     # 服务器配置
     HOST = os.getenv("HOST", "127.0.0.1")
     PORT = int(os.getenv("PORT", "5000"))
-    DEBUG = os.getenv("FLASK_DEBUG", "True").lower() == "true"
+    DEBUG = os.getenv("FLASK_DEBUG", "False").lower() == "true"
 
     # CORS配置
     CORS_ORIGINS = os.getenv(

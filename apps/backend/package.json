@@ -133,7 +133,10 @@
       "^@app/file-operation(|/.*)$": "<rootDir>/libs/file-operation/src/$1",
       "^@app/mail(|/.*)$": "<rootDir>/libs/mail/src/$1",
       "^@app/metrics(|/.*)$": "<rootDir>/libs/metrics/src/$1",
-      "^@app/redis(|/.*)$": "<rootDir>/libs/redis/src/$1"
+      "^@app/redis(|/.*)$": "<rootDir>/libs/redis/src/$1",
+      "^@common/(.*)$": "<rootDir>/libs/common/src/$1",
+      "^@shared/(.*)$": "<rootDir>/libs/shared/src/$1",
+      "^config/(.*)$": "<rootDir>/config/$1"
     }
   }
 }
