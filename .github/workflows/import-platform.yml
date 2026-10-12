@@ -1,0 +1,25 @@
+name: Import Web Backend and AI
+on:
+  push:
+    branches: [integration/web-backend-ai]
+    paths: [".github/workflows/import-platform.yml", "scripts/import-platform.sh"]
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: integration/web-backend-ai
+          fetch-depth: 0
+      - run: bash scripts/import-platform.sh
+      - name: Open draft PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create --draft --base main --head staging/web-backend-ai \
+            --title "Integrate web, backend, AI with full source histories" \
+            --body "Preserve original 3 repository commit histories; import static fixes. No production deployment or GPU E2E validation yet." || true
